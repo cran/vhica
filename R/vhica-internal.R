@@ -57,10 +57,11 @@ function (vhica.obj, user.species = NULL, tree.species = NULL)
         warning("Some of the species are not in the data. Dropped.")
         species <- species[!species %in% data.species]
     }
-    if (!is.null(tree.species) && !all(species %in% tree.species)) {
-        warning("Labels in the phylogenetic tree do not match the data set. Better not to plot the tree.")
-    }
     if (!is.null(tree.species)) {
+		if(!all(species %in% tree.species)) {
+			warning("Labels in the phylogenetic tree do not match the data set. Better not to plot the tree.")
+		}
+		species <- unique(c(species, tree.species))
         species <- species[match(tree.species, species)]
     }
     if (is.null(names(species))) {
@@ -225,7 +226,7 @@ function (col.obj, main = "", p.adjust.method = "none", nslices = 1000,
     par(mar = c(4, 1, 2, 1))
     if (!requireNamespace("plotrix", quietly=TRUE)) {
         frame()
-        return
+        return()
     }
     compl <- ""
     if (p.adjust.method != "none") {
@@ -370,7 +371,7 @@ function (treefile)
 .read.codon.bias <-
 function (file, reference = "Gene") 
 {
-    rawdata <- read.table(file, header = TRUE, row.names = NULL)
+    rawdata <- read.table(file, header = TRUE, row.names = NULL, stringsAsFactors = TRUE)
     if (ncol(rawdata) < 3) {
         stop("Not enough columns in file ", file)
     }
@@ -393,7 +394,7 @@ function (file, reference = "Gene")
 .read.divergence <-
 function (file, divergence = "dS") 
 {
-    rawdata <- read.table(file, header = TRUE, row.names = NULL)
+    rawdata <- read.table(file, header = TRUE, row.names = NULL, stringsAsFactors = TRUE)
     if (ncol(rawdata) != 4) {
         stop("Number of columns different than 4 in file ", file)
     }

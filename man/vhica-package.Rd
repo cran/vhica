@@ -35,7 +35,7 @@ Scientists who designed the method: Gabriel Wallau, Aurélie Hua-Van, Arnaud Le~
 Maintainer: Arnaud Le Rouzic <lerouzic@egce.cnrs-gif.fr>
 }
 \references{
-Gabriel Luz Wallau, Arnaud Le Rouzic, Pierre Capy, Elgion Loreto, Aurélie Hua-Van. VHICA: A new method to discriminate between vertical and horizontal transposon transfer: application to the mariner family within Drosophila. in prep. 
+Gabriel Luz Wallau, Arnaud Le Rouzic, Pierre Capy, Elgion Loreto, Aurélie Hua-Van. VHICA: A new method to discriminate between vertical and horizontal transposon transfer: application to the mariner family within Drosophila. Molecular biology and evolution 33 (4), 1094-1109.
 }
 
 \keyword{ package }
@@ -46,5 +46,6 @@ file.div <- system.file("extdata", "mini-div.txt", package="vhica")
 file.tree <- if(require("ape")) system.file("extdata", "phylo.nwk", package="vhica") else NULL
 vc <- read.vhica(cb.filename=file.cb, div.filename=file.div)
 plot(vc, "dere", "dana")
-image(vc, "mellifera:6", treefile=file.tree, skip.void=TRUE)
+im <- image(vc, "mellifera:6", treefile=file.tree, skip.void=TRUE)
+summary(im)
 }
